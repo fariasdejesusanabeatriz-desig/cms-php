@@ -14,6 +14,8 @@ function linkMenu(string $item, string $menuAtivo): string
 
 // Total de usuários exibido ao lado do item "Usuários"
 $totalUsuariosMenu = ehAdmin() ? (int) $pdo->query('SELECT COUNT(*) FROM usuarios')->fetchColumn() : 0;
+// Total de contatos exibido ao lado do item "Contatos"
+$totalContatosMenu = (int) $pdo->query('SELECT COUNT(*) FROM contatos')->fetchColumn();   
 ?>
     <aside class="sidebar" id="sidebar">
       <a href="dashboard.php" class="sidebar__brand">
@@ -25,6 +27,11 @@ $totalUsuariosMenu = ehAdmin() ? (int) $pdo->query('SELECT COUNT(*) FROM usuario
         <p class="sidebar__label">Principal</p>
         <ul class="sidebar__menu">
           <li><a href="dashboard.php" <?= linkMenu('dashboard', $menuAtivo) ?>><i class="bi bi-grid-1x2"></i> Dashboard</a></li>
+        </ul>
+
+        <p class="sidebar__label">Conteúdo do site</p>
+        <ul class="sidebar__menu">
+          <li><a href="contatos.php" <?= linkMenu('contatos', $menuAtivo) ?>><i class="bi bi-person-lines-fill"></i> Contatos <span class="badge badge-primary"><?= $totalContatosMenu ?></span></a></li>
         </ul>
 
         <?php if (ehAdmin()): // só administradores gerenciam usuários ?>
