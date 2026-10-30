@@ -34,13 +34,14 @@
     var $texto = $('#texto');
 
     /* ---------------------------------------------------------------
-       Editor rich text (Summernote Lite) no campo de texto
+       Editor rich text (Summernote Lite)
+       O conteúdo HTML é enviado no campo <textarea name="texto">.
        --------------------------------------------------------------- */
     if ($texto.length) {
       $texto.summernote({
         lang: 'pt-BR',
         height: 200,
-        placeholder: 'Escreva aqui o depoimento do cliente...',
+        placeholder: 'Escreva aqui o depoimento... Você pode usar negrito e itálico se desejar.',
         styleTags: ['p', 'h3', 'h4', 'blockquote'],
         toolbar: [
           ['font',   ['bold', 'italic', 'underline', 'clear']],
@@ -74,12 +75,16 @@
       var valido = true;
       var autor  = $.trim($autor.val());
 
+      // Valida o Autor
       if (autor.length < 3) {
         marcarErro($autor, 'Informe o nome do autor (mínimo 3 caracteres).'); 
         valido = false;
+      } else if (autor.length > 100) {
+        marcarErro($autor, 'O nome deve ter no máximo 100 caracteres.'); 
+        valido = false;
       }
 
-      // Verifica se o editor de texto está vazio
+      // Valida se o editor de texto está vazio
       if ($texto.length && $texto.summernote('isEmpty')) {
         marcarErro($texto, 'Escreva o texto do depoimento.'); 
         valido = false;
