@@ -94,4 +94,3 @@ function salvarConfiguracoesContato($pdo, $dados) {
             ':insta' => $dados['link_instagram'], ':face' => $dados['link_facebook'], ':tiktok' => $dados['link_tiktok']
         ]);
     }
-}
