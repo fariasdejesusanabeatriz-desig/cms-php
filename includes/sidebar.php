@@ -15,7 +15,10 @@ function linkMenu(string $item, string $menuAtivo): string
 // Total de usuários exibido ao lado do item "Usuários"
 $totalUsuariosMenu = ehAdmin() ? (int) $pdo->query('SELECT COUNT(*) FROM usuarios')->fetchColumn() : 0;
 // Total de contatos exibido ao lado do item "Contatos"
-$totalContatosMenu = (int) $pdo->query('SELECT COUNT(*) FROM contatos')->fetchColumn();   
+$totalContatosMenu = (int) $pdo->query('SELECT COUNT(*) FROM contato')->fetchColumn();
+$totalQuemSomosMenu = (int) $pdo->query('SELECT COUNT(*) FROM quem_somos')->fetchColumn();
+$totalProdutosMenu = (int) $pdo->query('SELECT COUNT(*) FROM produtos')->fetchColumn();
+$totalPrincipalMenu = (int) $pdo->query('SELECT COUNT(*) FROM principal')->fetchColumn(); 
 ?>
     <aside class="sidebar" id="sidebar">
       <a href="dashboard.php" class="sidebar__brand">
@@ -39,30 +42,34 @@ $totalContatosMenu = (int) $pdo->query('SELECT COUNT(*) FROM contatos')->fetchCo
         <ul class="sidebar__menu">
           <li><a href="usuarios.php" <?= linkMenu('usuarios', $menuAtivo) ?>><i class="bi bi-people"></i> Usuários <span class="badge badge-primary"><?= $totalUsuariosMenu ?></span></a></li>
         </ul>
+        <?php endif; ?>
 
         <?php if (ehAdmin()): // só administradores gerenciam quem somos ?>
         <p class="sidebar__label">Administração</p>
         <ul class="sidebar__menu">
-          <li><a href="quem-somos.php" <?= linkMenu('quem-somos', $menuAtivo) ?>><i class="bi bi-people"></i> Usuários <span class="badge badge-primary"><?= $totalQuemSomosMenu ?></span></a></li>
+          <li><a href="quem-somos.php" <?= linkMenu('quem-somos', $menuAtivo) ?>><i class="bi bi-info-circle"></i> Quem somos <span class="badge badge-primary"><?= $totalQuemSomosMenu ?></span></a></li>
         </ul>
+        <?php endif; ?>
 
         <?php if (ehAdmin()): // só administradores gerenciam produtos ?>
         <p class="sidebar__label">Administração</p>
         <ul class="sidebar__menu">
-          <li><a href="Produtos.php" <?= linkMenu('produtos', $menuAtivo) ?>><i class="bi bi-people"></i> Usuários <span class="badge badge-primary"><?= $totaProdutosMenu ?></span></a></li>
-        </ul>
+          <li><a href="Produtos.php" <?= linkMenu('produtos', $menuAtivo) ?>><i class="bi bi-box-seam"></i> Produtos <span class="badge badge-primary"><?= $totalProdutosMenu ?></span></a></li>
+        <?php endif; ?>
 
         <?php if (ehAdmin()): // só administradores gerenciam principal ?>
         <p class="sidebar__label">Administração</p>
         <ul class="sidebar__menu">
-          <li><a href="Principal.php" <?= linkMenu('principal', $menuAtivo) ?>><i class="bi bi-people"></i> Usuários <span class="badge badge-primary"><?= $totalPrincipalMenu ?></span></a></li>
+          <li><a href="Principal.php" <?= linkMenu('principal', $menuAtivo) ?>><i class="bi bi-house"></i> Principal <span class="badge badge-primary"><?= $totalPrincipalMenu ?></span></a></li>
         </ul>
+        <?php endif; ?>
 
         <?php if (ehAdmin()): // só administradores gerenciam depoimentos ?>
         <p class="sidebar__label">Administração</p>
         <ul class="sidebar__menu">
           <li><a href="depoimentos.php" <?= linkMenu('depoimentos', $menuAtivo) ?>><i class="bi bi-people"></i> Usuários <span class="badge badge-primary"><?= $totalDepoimentosMenu ?></span></a></li>
         </ul>
+        <?php endif; ?>
 
         <?php if (ehAdmin()): // só administradores gerenciam quem somos ?>
         <p class="sidebar__label">Administração</p>

@@ -75,8 +75,21 @@ require_once '../includes/header.php';
         <?php if (isset($erros['geral'])): ?>
           <div class="alert alert-danger" role="alert"><?= e($erros['geral']) ?></div>
         <?php endif; ?>
-
-        <?php require 'principal-form.php'; ?>
+        
+        <style>
+        .form-pagina .card > form { padding: 24px; }
+        .form-pagina .form-group { margin-bottom: 20px; }
+        .form-pagina .form-label { display: block; margin-bottom: 6px; font-weight: 600; }
+        .form-pagina .form-control,
+        .form-pagina .form-select { width: 100%; max-width: 100%; box-sizing: border-box; }
+        .form-pagina small { display: block; margin-top: 6px; }
+        .form-pagina .form-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 8px; }
+        </style>
+        
+        <div class="form-pagina">
+          <?php require '../includes/principal-form.php'; ?>
+        </div>
+      
       </main>
 
 <?php require_once '../includes/footer.php'; ?>

@@ -78,7 +78,7 @@ require_once '../includes/header.php';
           <div class="alert alert-danger" role="alert"><?= e($erros['geral']) ?></div>
         <?php endif; ?>
 
-        <?php require 'produtos-form.php'; ?>
+        <?php require '../includes/produtos-form.php'; ?>
       </main>
 
 <?php require_once '../includes/footer.php'; ?>

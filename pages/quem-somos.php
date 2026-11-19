@@ -30,7 +30,7 @@ require_once '../includes/header.php';
           </div>
           <div class="page-header__actions">
             <!-- Botão para editar tudo de uma vez -->
-            <a href="quem-somos-editar.php" class="btn btn-primary"><i class="bi bi-pencil"></i> Editar Página</a>
+            <a href="quem-somos-editar.php" class="btn btn-primary"><i class="bi bi-pencil"></i> Editar página</a>
           </div>
         </div>
 
@@ -38,11 +38,16 @@ require_once '../includes/header.php';
         <?php exibirMensagem(); ?>
 
         <section class="card">
-          <div class="card-header bg-transparent border-bottom-0 pb-0">
-            <h2 class="h5 mb-0"><i class="bi bi-file-text text-primary me-2"></i> Textos Institucionais</h2>
+
+          <!-- ================= TEXTOS INSTITUCIONAIS ================= -->
+          <div class="card__header">
+            <div>
+              <h2 class="card__title"><i class="bi bi-file-text text-primary"></i> Textos institucionais</h2>
+              <p class="card__subtitle">Conteúdo exibido na página "Quem somos" do site</p>
+            </div>
           </div>
           <div class="table-responsive">
-            <table class="table table--stack mb-0">
+            <table class="table table--stack">
               <tbody>
                 <tr>
                   <td data-label="História" style="width: 200px;" class="text-muted">Nossa História</td>
@@ -60,21 +65,25 @@ require_once '../includes/header.php';
             </table>
           </div>
 
-          <div class="card-header bg-transparent border-bottom-0 pb-0 pt-4">
-            <h2 class="h5 mb-0"><i class="bi bi-image text-success me-2"></i> Fotos da Página</h2>
+          <!-- ================= FOTOS DA PÁGINA ================= -->
+          <div class="card__header">
+            <div>
+              <h2 class="card__title"><i class="bi bi-image text-success"></i> Fotos da página</h2>
+              <p class="card__subtitle">Imagens exibidas ao lado dos textos</p>
+            </div>
           </div>
           <div class="table-responsive">
-            <table class="table table--stack mb-0">
+            <table class="table table--stack">
               <tbody>
                 <!-- Foto 1 -->
                 <tr>
                   <td data-label="Foto 1" style="width: 200px;" class="text-muted">Foto 1 (Principal)</td>
                   <td>
                     <?php if (!empty($dados['foto1'])): ?>
-                      <div class="d-flex align-items-center gap-2">
+                      <div style="display: flex; align-items: center; gap: 12px;">
                         <img src="../uploads/quem-somos/<?= e($dados['foto1']) ?>" alt="Foto 1" style="max-height: 80px; border-radius: 6px;">
-                        <button type="button" class="action-btn action-btn--danger btn-excluir-foto" 
-                                data-campo="foto1" data-valor="<?= e($dados['foto1']) ?>" title="Excluir Foto 1">
+                        <button type="button" class="action-btn action-btn--danger btn-excluir-foto"
+                                data-campo="foto1" data-valor="<?= e($dados['foto1']) ?>" title="Excluir Foto 1" aria-label="Excluir Foto 1">
                           <i class="bi bi-trash3"></i>
                         </button>
                       </div>
@@ -88,10 +97,10 @@ require_once '../includes/header.php';
                   <td data-label="Foto 2" class="text-muted">Foto 2 (Secundária)</td>
                   <td>
                     <?php if (!empty($dados['foto2'])): ?>
-                      <div class="d-flex align-items-center gap-2">
+                      <div style="display: flex; align-items: center; gap: 12px;">
                         <img src="../uploads/quem-somos/<?= e($dados['foto2']) ?>" alt="Foto 2" style="max-height: 80px; border-radius: 6px;">
-                        <button type="button" class="action-btn action-btn--danger btn-excluir-foto" 
-                                data-campo="foto2" data-valor="<?= e($dados['foto2']) ?>" title="Excluir Foto 2">
+                        <button type="button" class="action-btn action-btn--danger btn-excluir-foto"
+                                data-campo="foto2" data-valor="<?= e($dados['foto2']) ?>" title="Excluir Foto 2" aria-label="Excluir Foto 2">
                           <i class="bi bi-trash3"></i>
                         </button>
                       </div>
@@ -103,6 +112,7 @@ require_once '../includes/header.php';
               </tbody>
             </table>
           </div>
+
         </section>
 
       </main>

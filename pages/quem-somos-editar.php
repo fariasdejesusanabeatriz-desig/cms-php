@@ -16,11 +16,12 @@ $erros = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrfValidar();
-    $dados = lerFormularioQuemSomos();
+    $atuais = $dados;                    // fotos que já estão salvas no banco
+    $dados  = lerFormularioQuemSomos();
 
     // Mantém as fotos atuais por padrão
-    $foto1 = $dados['foto1'] ?? null; 
-    $foto2 = $dados['foto2'] ?? null;
+    $foto1 = $atuais['foto1'] ?? null;
+    $foto2 = $atuais['foto2'] ?? null;
     $erroFoto = null;
 
     // Upload da Foto 1

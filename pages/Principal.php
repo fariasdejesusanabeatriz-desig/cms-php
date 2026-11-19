@@ -185,7 +185,7 @@ require_once '../includes/header.php';
 
       <!-- =====================================================================
            MODAL DE CONFIRMAÇÃO DE EXCLUSÃO
-           O produtos.js preenche o nome e o id ao clicar na lixeira.
+           O principal.js preenche o nome e o id ao clicar na lixeira.
            O id vai no campo oculto e é enviado via POST.
            ===================================================================== -->
       <div class="modal" id="modalExcluir" role="dialog" aria-modal="true" aria-labelledby="modalExcluirTitulo" aria-hidden="true">
@@ -207,6 +207,6 @@ require_once '../includes/header.php';
       </div>
 
 <?php
-$scripts = ['produtos.js']; // o mesmo script do modal de exclusão serve aqui
+$scripts = ['principal.js']; // script da listagem Principal (abre o modal de exclusão)
 require_once '../includes/footer.php';
 ?>
