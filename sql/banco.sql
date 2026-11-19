@@ -23,6 +23,14 @@ USE cms;
 -- A tabela "filha" (que tem a chave estrangeira) precisa ser apagada primeiro
 DROP TABLE IF EXISTS usuarios_tokens;
 DROP TABLE IF EXISTS usuarios;
+DROP TABLE IF EXISTS produtos;
+DROP TABLE IF EXISTS configuracoes;
+DROP TABLE IF EXISTS principal;
+DROP TABLE IF EXISTS quem_somos;
+DROP TABLE IF EXISTS contato;
+DROP TABLE IF EXISTS depoimentos;
+
+
 
 
 -- ----------------------------------------------------------------------------
@@ -97,4 +105,115 @@ VALUES (
   '<p>Conta de <strong>administrador</strong> criada na instalação do sistema.</p>',
   'admin',
   1
+);
+
+
+-- ============================================================================
+--  MÓDULOS DO SITE — LIONS MAKEUP
+--  Tabelas com os conteúdos que o painel edita e o site exibe.
+--
+--  Tabelas de registro ÚNICO (só existe 1 linha; o painel apenas edita):
+--    configuracoes, principal, quem_somos, contato
+--  Tabelas com vários registros (CRUD completo):
+--    produtos, depoimentos, redes_sociais
+-- ============================================================================
+
+-- ----------------------------------------------------------------------------
+--  Tabela: produtos  (CRUD de produtos da loja)
+--  parcelas: 1 = à vista; de 2 a 12 = "em Nx sem juros".
+--  destaque: 1 = aparece em "Destaques da coleção" na página inicial.
+-- ----------------------------------------------------------------------------
+
+CREATE TABLE produtos (
+    id              INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    nome            VARCHAR(120) NOT NULL,
+    descricao       TEXT NOT NULL,
+    preco           DECIMAL(10,2) NOT NULL,
+    parcelas        TINYINT UNSIGNED NOT NULL DEFAULT 1,
+    imagem          VARCHAR(255) NOT NULL,
+    destaque        TINYINT(1) NOT NULL DEFAULT 0,
+    status          TINYINT(1) NOT NULL DEFAULT 1, -- 1 = à venda, 0 = oculto
+    criado_em       DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    atualizado_em   DATETIME NULL ON UPDATE CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (id),
+    KEY idx_produtos_status_destaque (status, destaque)
+
+) ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------------------------------------------------------
+--  Tabela: configuracoes  (CRUD de configurações → logo da loja)
+-- ----------------------------------------------------------------------------
+
+CREATE TABLE configuracoes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    logo VARCHAR(255) NOT NULL,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ----------------------------------------------------------------------------
+--  Tabela: principal  (CRUD da página inicial → título, descrição e imagem)
+-- ----------------------------------------------------------------------------
+
+USE cms;
+
+CREATE TABLE IF NOT EXISTS principal (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(150) NOT NULL,
+    descricao TEXT,
+    imagem VARCHAR(255) DEFAULT NULL,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ----------------------------------------------------------------------------
+--  Tabela: quem_somos  (CRUD da página "Quem somos")
+--  texto, valores e missao guardam HTML do editor rich text.
+-- ----------------------------------------------------------------------------
+
+CREATE TABLE quem_somos (
+  id            INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  texto         MEDIUMTEXT   NULL,
+  valores       MEDIUMTEXT   NULL,
+  missao        MEDIUMTEXT   NULL,
+  foto1         VARCHAR(255) NULL,
+  foto2         VARCHAR(255) NULL,
+  atualizado_em DATETIME     NULL ON UPDATE CURRENT_TIMESTAMP,
+
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------------------------------------------------------
+--  Tabela: contato  (endereço, 2 telefones, 2 e-mails e horário de atendimento)
+-- ----------------------------------------------------------------------------
+
+CREATE TABLE contato (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+
+    telefones JSON,
+    emails JSON,
+
+    horario_semana VARCHAR(100),
+    horario_sabado VARCHAR(100),
+    horario_domingo VARCHAR(100),
+
+    link_instagram VARCHAR(255),
+    link_facebook VARCHAR(255),
+    link_tiktok VARCHAR(255),
+
+    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- ----------------------------------------------------------------------------
+--  Tabela: depoimentos  (CRUD de depoimentos de clientes)
+-- ----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS depoimentos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    autor VARCHAR(150) NOT NULL,
+    texto TEXT NOT NULL,
+    status TINYINT(1) NOT NULL DEFAULT 1,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

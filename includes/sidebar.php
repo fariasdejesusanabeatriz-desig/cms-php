@@ -39,6 +39,36 @@ $totalContatosMenu = (int) $pdo->query('SELECT COUNT(*) FROM contatos')->fetchCo
         <ul class="sidebar__menu">
           <li><a href="usuarios.php" <?= linkMenu('usuarios', $menuAtivo) ?>><i class="bi bi-people"></i> Usuários <span class="badge badge-primary"><?= $totalUsuariosMenu ?></span></a></li>
         </ul>
+
+        <?php if (ehAdmin()): // só administradores gerenciam quem somos ?>
+        <p class="sidebar__label">Administração</p>
+        <ul class="sidebar__menu">
+          <li><a href="quem-somos.php" <?= linkMenu('quem-somos', $menuAtivo) ?>><i class="bi bi-people"></i> Usuários <span class="badge badge-primary"><?= $totalQuemSomosMenu ?></span></a></li>
+        </ul>
+
+        <?php if (ehAdmin()): // só administradores gerenciam produtos ?>
+        <p class="sidebar__label">Administração</p>
+        <ul class="sidebar__menu">
+          <li><a href="Produtos.php" <?= linkMenu('produtos', $menuAtivo) ?>><i class="bi bi-people"></i> Usuários <span class="badge badge-primary"><?= $totaProdutosMenu ?></span></a></li>
+        </ul>
+
+        <?php if (ehAdmin()): // só administradores gerenciam principal ?>
+        <p class="sidebar__label">Administração</p>
+        <ul class="sidebar__menu">
+          <li><a href="Principal.php" <?= linkMenu('principal', $menuAtivo) ?>><i class="bi bi-people"></i> Usuários <span class="badge badge-primary"><?= $totalPrincipalMenu ?></span></a></li>
+        </ul>
+
+        <?php if (ehAdmin()): // só administradores gerenciam depoimentos ?>
+        <p class="sidebar__label">Administração</p>
+        <ul class="sidebar__menu">
+          <li><a href="depoimentos.php" <?= linkMenu('depoimentos', $menuAtivo) ?>><i class="bi bi-people"></i> Usuários <span class="badge badge-primary"><?= $totalDepoimentosMenu ?></span></a></li>
+        </ul>
+
+        <?php if (ehAdmin()): // só administradores gerenciam quem somos ?>
+        <p class="sidebar__label">Administração</p>
+        <ul class="sidebar__menu">
+          <li><a href="Configuracoes.php" <?= linkMenu('configuracoes', $menuAtivo) ?>><i class="bi bi-people"></i> Usuários <span class="badge badge-primary"><?= $totalConfiguracoesMenu ?></span></a></li>
+        </ul>
         <?php endif; ?>
 
         <!-- =============================================================

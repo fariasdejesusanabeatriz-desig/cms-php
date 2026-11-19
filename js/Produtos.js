@@ -1,34 +1,30 @@
-/* Modal de confirmação de exclusão de produtos */
-document.addEventListener('DOMContentLoaded', function () {
-  var modal = document.getElementById('modalExcluir');
-  if (!modal) return;
+/* ==========================================================================
+   CMS — Listagem de produtos (admin/produtos.php)
+   Requer: jQuery, main.js
+   --------------------------------------------------------------------------
+   A busca, o filtro e a paginação são feitos no SERVIDOR (produtos.php),
+   com SELECT ... WHERE ... LIMIT ... OFFSET, lendo os dados de $_GET.
+   Aqui ficam apenas as facilidades de uso da página.
+   ========================================================================== */
 
-  var campoId   = document.getElementById('excluirId');
-  var campoNome = document.getElementById('excluirNome');
+(function ($) {
+  'use strict';
 
-  function abrir(id, nome) {
-    campoId.value = id;
-    campoNome.textContent = nome;
-    modal.classList.add('is-open');
-    modal.setAttribute('aria-hidden', 'false');
-  }
+  $(function () {
 
-  function fechar() {
-    modal.classList.remove('is-open');
-    modal.setAttribute('aria-hidden', 'true');
-  }
+    /* Filtro: ao escolher as parcelas, envia o formulário ---------------- */
+    $('#filtroParcelas').on('change', function () {
+      $('#formFiltros').trigger('submit');
+    });
 
-  document.querySelectorAll('.btn-excluir').forEach(function (botao) {
-    botao.addEventListener('click', function () {
-      abrir(botao.dataset.id, botao.dataset.nome);
+    /* Exclusão: preenche o modal com os dados da linha ---------------------
+       O formulário do modal envia o id via POST para produtos-excluir.php,
+       que executa o DELETE e redireciona de volta com uma mensagem. */
+    $('#tabelaProdutos').on('click', '.btn-excluir', function () {
+      $('#excluirNome').text($(this).data('nome'));
+      $('#excluirId').val($(this).data('id'));
+      CMS.abrirModal('#modalExcluir');
     });
   });
 
-  modal.querySelectorAll('[data-modal-close]').forEach(function (el) {
-    el.addEventListener('click', fechar);
-  });
-
-  // Fecha clicando no fundo escuro ou apertando Esc
-  modal.addEventListener('click', function (e) { if (e.target === modal) fechar(); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') fechar(); });
-});
+})(jQuery);
